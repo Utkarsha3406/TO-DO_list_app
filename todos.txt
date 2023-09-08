@@ -1,2 +1,8 @@
 run
 sleep
+eat
+eat
+eat
+eat
+sleep
+sleep
