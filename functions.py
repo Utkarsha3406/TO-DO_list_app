@@ -1,4 +1,4 @@
-FILEPATH ="todos.txt"
+FILEPATH ="todos_item.txt"
 
 def get_todos(filepath=FILEPATH):
     with open(filepath,'r') as file_local:
