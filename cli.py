@@ -1,23 +1,55 @@
-todos = []
+import functions
+import time
+
+now=time.strftime("%b %d,%Y %H:%M:%S")
 while True:
-    user_action = input("enter add show,edit,complete or exit:")
+    user_action = input("Type add show,edit,complete or exit:")
     user_action = user_action.strip()
-    match user_action:
-        case 'add':
-            todo = input("Enter a todo:")
-            todos.append(todo)
-        case 'show':
-            for index, item in enumerate(todos):
-                print(f"{index + 1}-{item}")
-        case 'edit':
-            number = int(input("Number of todo to edit:"))
-            number = number - 1
-            todos[number] = input("Enter new todo:")
-        case 'complete':
-            num = int(input("Enter number of todo 2 complete:"))
-            todos.pop(num-1)
+    if user_action.startswith("add"):
+        todo=user_action[4:]
 
-        case 'exit':
-            break
-print("Bye!")
+        todos=functions.get_todos()
+        todos.append(todo + '\n')
+        functions.write_todos(todos)
+    elif user_action.startswith('show'):
+        todos = functions.get_todos()
 
+        for index,item in enumerate(todos):
+            item=item.strip('\n')
+            row=f"{index + 1}-{item}"
+            print(row)
+    elif user_action.startswith('edit'):
+        try:
+            number = int (user_action[5:])
+            print(number)
+            number=number-1
+            todos = functions.get_todos()
+            new_todo=input("Enter new todo: ")
+            todos[number]=new_todo + '\n'
+            functions.write_todos(todos)
+        except ValueError:
+            print("Your command is not valid.")
+            continue
+    elif user_action.startswith('complete'):
+        try:
+            number = int(user_action[9:])
+            todos=functions.get_todos()
+            index=number-1
+            todo_to_remove=todos[index].strip('\n')
+            todos.pop(index)
+
+            functions.write_todos(todos)
+
+            message=f"Todo {todo_to_remove} was removed"
+            print(message)
+        except IndexError:
+            print("There is no todo with that number.")
+            continue
+        except ValueError:
+            print("Please write index number")
+            continue
+    elif user_action.startswith('exit'):
+        break
+    else:
+        print("Command not valid")
+print("Bye!!!")
