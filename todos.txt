@@ -1,5 +1,7 @@
 read
 try
 add
-
+cleanfix computeradd
+add
+help
 
