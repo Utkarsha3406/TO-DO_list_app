@@ -3,5 +3,6 @@ try
 add
 cleanfix computeradd
 add
-help
-
+get
+slrrp
+sleep

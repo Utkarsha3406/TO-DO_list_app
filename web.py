@@ -14,7 +14,12 @@ st.write("This app is to increase your productivity")
 
 for index, todo in enumerate(todos):
     checkbox_key = f"checkbox_{index}"
-    st.checkbox(todo, key=checkbox_key)
+    checkbox=st.checkbox(todo, key=checkbox_key)
+    if checkbox:
+        todos.pop(index)
+        functions.write_todos(todos)
+        del st.session_state[checkbox_key]
+        st.experimental_rerun()
 
 st.text_input(label="",placeholder="Add new todo....",
               on_change=add_todo,key='new_todo')
